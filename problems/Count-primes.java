@@ -1,34 +1,30 @@
-// Problem : https://leetcode.com/problems/count-primes/?envType=problem-list-v2&envId=math
+// Problem : https://leetcode.com/problems/count-primes/
 
-// Approach : Sieve of Eratosthenes
+// Good for n < 10^6.
 
 class Solution {
     public int countPrimes(int n) {
-       
-        if(n <= 2) return 0; 
-
-        boolean isPrime[] = new boolean[n];
-        Arrays.fill(isPrime , true);
-        isPrime[0] = false;
-        isPrime[1] = false;
-
-        for(int i = 2 ; i*i < n ; i++){
-            if(isPrime[i]){
-                for(int j = i * i ; j < n ; j+=i){
-                    isPrime[j] = false;
-                }
-            }
-        }
-
         int count = 0;
-
-        for(int i = 0 ; i < n ; i++){
-            if(isPrime[i]){
-                count++;
+        int temp = 0;
+        if(n <= 1){
+            return 0;
+        }else{
+            for(int i = 2 ; i < n ; i++){
+                for(int j = 2 ; j * j <= i ; j++){
+                    if(i % j == 0 ){
+                        count++;
+                        break;
+                    }
+                }
+                if(count == 0){
+                    temp++;
+                }
+                count=0;
             }
         }
 
-        return count;
-        
+      
+        return temp;
+         
     }
 }
